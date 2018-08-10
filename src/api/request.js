@@ -1,9 +1,10 @@
 import { API_BASE_URL } from '../config';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import store from '../store';
 
 export default (method, params = null, data = null, url_parts = [], authenticated = true) => {
     return new Promise((resolve, reject) => {
+        method = method.toUpperCase();
 
         let path = url_parts.join('/');
         let url = `${API_BASE_URL}/${path}`
@@ -14,11 +15,11 @@ export default (method, params = null, data = null, url_parts = [], authenticate
             method,
         };
 
-        if (method == 'get' && params) {
+        if (method === 'GET' && params) {
             config['params'] = prepareParams(params);
         }
 
-        if (method !== 'get' && data) {
+        if (method !== 'GET' && data) {
             config['data'] = data;
         }
 
