@@ -15,7 +15,7 @@ const handlers = {
     },
     [AUTH_SUCCESS]: (state, action) => {
         let { user, access_token } = action.payload;
-        return { ...state, loading: false, authenticated: true, user, access_token };
+        return { ...state, loading: false, authenticated: true, error: '', user, access_token };
     },
     [AUTH_FAILED]: (state, action) => {
         let error = action.payload;

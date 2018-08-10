@@ -147,8 +147,5 @@ export default connect(
     state => ({ auth: state.auth }),
     authActions
 )(
-    withStyles(styles)
-    (
-        withRouter(Login)
-    )
+    withStyles(styles)(withRouter(Login))
 )

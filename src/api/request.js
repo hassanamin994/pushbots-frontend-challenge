@@ -28,9 +28,9 @@ export default (method, params = null, data = null, url_parts = [], authenticate
         headers['Content-Type'] = 'application/json';
         // if authenticated request, add the access token in headers 
         if (authenticated && store.getState()) {
-            let user = store.getState()['auth']['user'] || null;
-            if (user && user.token) {
-                headers['Authentication'] =  user.token;
+            let access_token = store.getState()['auth']['access_token'] || null;
+            if (access_token) {
+                headers['Authorization'] = access_token;
             }
         }
     
