@@ -1,5 +1,5 @@
 import authController from '../api/auth';
-import { AUTH_LOADING, AUTH_FAILED, AUTH_SUCCESS } from './types';
+import { AUTH_LOADING, AUTH_FAILED, AUTH_SUCCESS, AUTH_LOGOUT } from './types';
 
 const login = (email, password) => {
     return (dispatch) => {
@@ -23,7 +23,12 @@ const login = (email, password) => {
     }
 }
 
+const logout = () => ({
+    type: AUTH_LOGOUT
+})
+
 
 export default {
-    login
+    login,
+    logout
 }

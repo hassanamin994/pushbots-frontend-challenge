@@ -1,13 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppBar, Toolbar, IconButton, Typography, Button, withStyles } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Button, withStyles, SwipeableDrawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import People from '@material-ui/icons/People'
 import Apps from '@material-ui/icons/Apps'
-import {Icon} from 'react-fa';
+import { Icon } from 'react-fa';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from 'prop-types';
 
+import authActions from '../actions/auth_actions';
+
+
 class Navbar extends React.Component {
+
+    state = {
+        drawerOpen: false
+    }
 
     render() {
         const { classes } = this.props;
@@ -15,7 +26,7 @@ class Navbar extends React.Component {
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => this.toggleDrawer(true)} >
                             <MenuIcon />
                         </IconButton>
 
@@ -33,8 +44,38 @@ class Navbar extends React.Component {
 
                     </Toolbar>
                 </AppBar>
+                {this.renderDrawer()}
             </div>
         )
+    }
+
+    renderDrawer() {
+
+        return (
+            <SwipeableDrawer
+                open={this.state.drawerOpen}
+                onClose={() => this.toggleDrawer(false)}
+                onOpen={() => this.toggleDrawer(true)}
+            >
+                <List>
+                    <ListItem button onClick={() => this.onLogout()} >
+                        <ListItemIcon>
+                            <Icon name="sign-out" />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" />
+                    </ListItem>
+                </List>
+            </SwipeableDrawer>
+        )
+    }
+
+    toggleDrawer(open) {
+        this.setState({ drawerOpen: open })
+    }
+
+    onLogout() {
+        console.log('on logout')
+        this.props.logout();
     }
 }
 
@@ -62,8 +103,10 @@ const styles = {
 
 Navbar.propTypes = {
     classes: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
 };
 
 export default connect(
-    state => ({ apps: state.apps, user: state.auth.user })
+    state => ({ apps: state.apps, user: state.auth.user }),
+    authActions
 )(withStyles(styles)(Navbar));

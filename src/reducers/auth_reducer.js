@@ -1,4 +1,4 @@
-import { AUTH_LOADING, AUTH_SUCCESS, AUTH_FAILED } from "../actions/types";
+import { AUTH_LOADING, AUTH_SUCCESS, AUTH_FAILED, AUTH_LOGOUT } from "../actions/types";
 
 export const INITIAL_STATE = {
     authenticated: false,
@@ -20,9 +20,12 @@ const handlers = {
     [AUTH_FAILED]: (state, action) => {
         let error = action.payload;
         return { ...state, loading: false, error };
+    },
+    [AUTH_LOGOUT]: (state) => {
+        return { ...INITIAL_STATE };
     }
 
 }
 
-export const authReducer =  (state = INITIAL_STATE, action) => 
+export const authReducer = (state = INITIAL_STATE, action) =>
     handlers[action.type] ? handlers[action.type](state, action) : state
