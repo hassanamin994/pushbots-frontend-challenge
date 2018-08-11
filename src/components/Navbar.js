@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppBar, Toolbar, IconButton, Typography, Button, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import People from '@material-ui/icons/People'
 import Apps from '@material-ui/icons/Apps'
+import {Icon} from 'react-fa';
 import PropTypes from 'prop-types';
 
 class Navbar extends React.Component {
@@ -20,8 +22,12 @@ class Navbar extends React.Component {
                         <Typography variant="title" color="inherit" className={classes.flex}>
                             Dashboard
                         </Typography>
+
                         <IconButton className={classes.appsButton} color="inherit" aria-label="Menu">
-                            <Apps />{this.props.apps.counts.totalApps}
+                            <People /><span className={classes.counts} >{this.props.apps.counts.devices}</span>
+                        </IconButton>
+                        <IconButton className={classes.appsButton} color="inherit" aria-label="Menu">
+                            <Apps /><span className={classes.counts}>{this.props.apps.counts.totalApps}</span>
                         </IconButton>
                         <Button color="inherit">{this.props.user.name}</Button>
 
@@ -44,7 +50,13 @@ const styles = {
         marginRight: 20,
     },
     appsButton: {
-        fontSize: '.9rem'
+        fontSize: '.9rem',
+        marginTop: -7
+    },
+    counts: {
+        display: 'inline-block',
+        marginLeft: 5,
+        paddingTop: 2
     }
 };
 

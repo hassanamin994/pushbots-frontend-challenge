@@ -8,7 +8,8 @@ export const INITIAL_STATE = {
         completedApps: 0,
         inProgressApps: 0,
         sharedApps: 0,
-        activeApps: 0
+        activeApps: 0,
+        devices: 0
     },
     filter: 'complete',
     complete: {
@@ -50,7 +51,8 @@ const handlers = {
             completedApps,
             inProgressApps,
             sharedApps,
-            activeApps
+            activeApps,
+            devices
         } = response;
 
         newState['counts'] = {
@@ -58,7 +60,8 @@ const handlers = {
             completedApps,
             inProgressApps,
             sharedApps,
-            activeApps
+            activeApps,
+            devices
         };
 
         // Set filtered Apps list
