@@ -8,11 +8,14 @@ class AppCardsList extends React.Component {
 
 
     render() {
+        const { apps } = this.props;
 
         return (
             <Grid container >
                 {
-                    this.renderApps()
+                    apps && apps.length > 0 ?
+                        this.renderApps() :
+                        this.renderNoContent()
 
                 }
             </Grid>
@@ -29,10 +32,19 @@ class AppCardsList extends React.Component {
         })
     }
 
+    renderNoContent() {
+        const { classes } = this.props;
+        return (
+            <Grid className={classes.noContentContainer} >
+                <h2>No content available</h2>
+            </Grid>
+        )
+    }
+
 }
 
 AppCardsList.propTypes = {
-    apps: PropTypes.arrayOf(Object).isRequired
+    apps: PropTypes.arrayOf(Object)
 }
 
 const styles = theme => ({
@@ -46,6 +58,11 @@ const styles = theme => ({
     control: {
         padding: theme.spacing.unit * 2,
     },
+    noContentContainer: {
+        width: '100%',
+        textAlign: 'center',
+        color: 'gray'
+    }
 });
 
 export default withStyles(styles)(AppCardsList);

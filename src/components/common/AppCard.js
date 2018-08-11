@@ -28,35 +28,18 @@ class AppCard extends React.Component {
   }
 
   renderCardHeader() {
-    const { classes, app } = this.props;
+    const { app } = this.props;
 
     return (
       <CardHeader
-        action={
-          <span>
-            {app.shared_by &&
-              <Tooltip title={`Shared by ${app.shared_by}`} >
-                <IconButton>
-                  <Icon name="share" />
-                </IconButton>
-              </Tooltip>
-            }
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          </span>
-        }
+        action={this.renderCardHeaderActions()}
         title={app.title}
-        subheader={
-          <div className={classes.subheader}>
-            <span className={classes.activeCount}>{app.devices} active</span>
-            {this.renderPlatforms()}
-          </div>
-        }
+        subheader={this.renderCardSubheader()}
       />
     )
   }
 
+  // renders the action buttons in the bottom of the card
   renderCardActions() {
     const { classes } = this.props;
 
@@ -72,13 +55,48 @@ class AppCard extends React.Component {
     );
   }
 
+  // renders the action buttons in the card header
+  renderCardHeaderActions() {
+    const { app } = this.props;
+
+    return (
+      <span>
+        {app.shared_by &&
+          <Tooltip title={`Shared by ${app.shared_by}`} >
+            <IconButton>
+              <Icon name="share" />
+            </IconButton>
+          </Tooltip>
+        }
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      </span>
+    )
+  }
+
+  // Renders the subheader section of the header
+  renderCardSubheader() {
+    const { app, classes} = this.props;
+    const devicesNum = app.devicesNum && app.devicesNum['t'] ? app.devicesNum['t'] : 0;
+
+    return (
+
+      <div className={classes.subheader}>
+        <span className={classes.activeCount}>{devicesNum} active</span>
+        {this.renderPlatforms()}
+      </div>
+
+    );
+  }
+
   renderPlatforms() {
     const { app, classes } = this.props;
 
     if (!app.platforms) return;
 
-    return Object.keys(app.platforms).map(platform => (
-      <Tooltip key={platform} title={platform} >
+    return Object.keys(app.platforms).map((platform, index) => (
+      <Tooltip key={platform + index} title={platform} >
         <Icon name={platform} className={classes.platformIcon} />
       </Tooltip>
     ));
@@ -88,6 +106,7 @@ class AppCard extends React.Component {
 
 AppCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  app: PropTypes.object.isRequired
 };
 
 const styles = theme => ({

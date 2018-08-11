@@ -25,12 +25,14 @@ class AppsFilter extends React.Component {
 
     renderFilterButton(filter) {
         const { classes, currentFilter } = this.props;
-        let buttonClasses = classes.filterButton;
+        let buttonClasses = [classes.filterButton, 'filter-' + filter.value];
         if (currentFilter === filter.value) {
-            buttonClasses += ' ' + classes.active;
+            buttonClasses.push(classes.active);
+            buttonClasses.push('active');
         }
+        
         return (
-            <IconButton key={filter.value} className={buttonClasses} color="inherit" aria-label="Filter" onClick={() => this.onChangeFilter(filter.value)} >
+            <IconButton key={filter.value} className={buttonClasses.join(' ')} color="inherit" aria-label="Filter" onClick={() => this.onChangeFilter(filter.value)} >
                 <Icon className={classes.filterIcon} name={filter.icon} />
                 <span className={classes.filterTitle} >{filter.title}</span>
                 <span className={classes.filterCount} >{filter.count}</span>
