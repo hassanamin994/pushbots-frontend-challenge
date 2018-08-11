@@ -12,7 +12,6 @@ class AppsDashboard extends React.Component {
 
 
     onChangeFilter(filter) {
-        console.log('filter ', filter)
         this.props.fetchApps(filter);
     }
 

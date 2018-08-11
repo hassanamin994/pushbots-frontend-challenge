@@ -19,7 +19,6 @@ const handlers = {
     },
     [AUTH_FAILED]: (state, action) => {
         let error = action.payload;
-        console.log('auth fauled reducer')
         return { ...state, loading: false, error };
     }
 

@@ -8,12 +8,10 @@ const fetchApps = (filter = 'complete') => {
 
         appsController.getApps(filter)
         .then(response => {
-            console.log('response ', response)
             dispatch({ type: FETCH_APPS_SUCCESS, payload: response });
         })
         .catch(error => {
             const reason = 'Something went wrong while loading apps';
-            console.log('error' , error)
             dispatch({ type: FETCH_APPS_FAILED, payload: reason })
         })
     }
