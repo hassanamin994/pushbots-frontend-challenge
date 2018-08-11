@@ -1,6 +1,6 @@
 import { API_BASE_URL } from '../config';
 import axios from 'axios';
-import store from '../store';
+import { store } from '../store';
 
 export default (method, params = null, data = null, url_parts = [], authenticated = true) => {
     return new Promise((resolve, reject) => {
@@ -33,25 +33,25 @@ export default (method, params = null, data = null, url_parts = [], authenticate
                 headers['Authorization'] = access_token;
             }
         }
-    
+
         config['headers'] = headers;
 
         axios.request(config)
-        .then(response => {
-            return resolve(response['data']);
-        })
-        .catch(error => {
-            reject(error['data'] || error);
-        });
+            .then(response => {
+                return resolve(response['data']);
+            })
+            .catch(error => {
+                reject(error['data'] || error);
+            });
 
     })
-    
+
 }
 
 
 const prepareParams = (params) => {
     let result = {};
-    
+
     if (params) {
         for (let key in params) {
             if (params.hasOwnProperty(key)) {

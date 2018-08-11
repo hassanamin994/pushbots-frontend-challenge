@@ -1,19 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AppCardsList from './common/AppCardsList'
+import { Redirect } from 'react-router-dom';
+import AppsDashboard from './AppsDashboard';
+import Navbar from './Navbar';
 import appsActions from '../actions/apps_actions';
 
 class Home extends React.Component {
 
     componentWillMount() {
-        this.props.fetchApps()
-        console.log('fetching apps')
+        if (this.props.auth.authenticated) {
+            this.props.fetchApps()
+        }
     }
 
     render() {
+        if (!this.props.auth.authenticated) {
+            return <Redirect to="/login" />
+        }
+
         return (
             <div>
-                <AppCardsList apps={[{a: 1}, {a: 2}, {a: 3}, {a: 4}]} />
+                <Navbar />
+                <AppsDashboard />
             </div>
         )
     }
@@ -21,6 +29,6 @@ class Home extends React.Component {
 
 
 export default connect(
-    state => ({apps: state.apps}),
+    state => ({apps: state.apps, auth: state.auth}),
     appsActions
 )(Home);

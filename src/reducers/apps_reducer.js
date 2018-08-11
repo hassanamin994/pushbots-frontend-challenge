@@ -10,7 +10,7 @@ export const INITIAL_STATE = {
         sharedApps: 0,
         activeApps: 0
     },
-    
+    filter: 'complete',
     complete: {
         current_page: 0,
         data: []
@@ -60,7 +60,7 @@ const handlers = {
 
         // Set filtered Apps list
         newState[response.appsFilter] = response.apps
-
+        newState['filter'] = response.appsFilter;
         return newState;
     },
     [FETCH_APPS_FAILED]: (state, action) => {

@@ -22,7 +22,7 @@ class AppCardsList extends React.Component {
     renderApps() {
         return this.props.apps.map(app => {
             return (
-                <Grid key={app.a} item xs={12} md={4} lg={4} >
+                <Grid key={app._id} item xs={12} md={6} lg={6} >
                     <AppCard app={app} />
                 </Grid>
             )
