@@ -1,4 +1,4 @@
-import { FETCH_APPS_LOADING, FETCH_APPS_SUCCESS, FETCH_APPS_FAILED } from "../actions/types";
+import { FETCH_APPS_LOADING, FETCH_APPS_SUCCESS, FETCH_APPS_FAILED, CHANGE_APPS_FILTER } from "../actions/types";
 
 export const INITIAL_STATE = {
     loading: false,
@@ -31,6 +31,9 @@ export const INITIAL_STATE = {
 
 
 const handlers = {
+    [CHANGE_APPS_FILTER]: (state, action) => {
+        return {...state, filter: action.payload}
+    },
     [FETCH_APPS_LOADING]: (state) => {
         return { ...state, loading: true, error: '' };
     },

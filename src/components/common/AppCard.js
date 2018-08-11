@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 // import SendIcon from '@material-ui/icons/Telegra';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ShareRoundedIcon from '@material-ui/icons/Send';
 import { Icon } from 'react-fa'
 
 class AppCard extends React.Component {
@@ -24,11 +23,14 @@ class AppCard extends React.Component {
           <CardHeader
             action={
               <span>
+                {app.shared_by && 
+                
                 <Tooltip title={`Shared by ${app.shared_by}`} >
                   <IconButton>
                     <Icon name="share" />
                   </IconButton>
                 </Tooltip>
+              }
                 <IconButton>
                   <MoreVertIcon />
                 </IconButton>
@@ -62,7 +64,7 @@ class AppCard extends React.Component {
     if (!app.platforms) return;
 
     return Object.keys(app.platforms).map(platform => (
-      <Tooltip title={platform} >
+      <Tooltip key={platform} title={platform} >
         <Icon name={platform} className={classes.platformIcon} />
       </Tooltip>
     ));
