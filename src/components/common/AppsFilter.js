@@ -5,11 +5,6 @@ import { Icon } from 'react-fa';
 
 class AppsFilter extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
     onChangeFilter(filter) {
         const { onChangeFilter } = this.props;
         onChangeFilter && onChangeFilter(filter);
@@ -17,7 +12,7 @@ class AppsFilter extends React.Component {
 
     render() {
 
-        const { classes, filters, currentFilter } = this.props;
+        const { classes, filters } = this.props;
 
         if (!filters) return <div />;
 
@@ -31,7 +26,7 @@ class AppsFilter extends React.Component {
     renderFilterButton(filter) {
         const { classes, currentFilter } = this.props;
         let buttonClasses = classes.filterButton;
-        if (currentFilter == filter.value) {
+        if (currentFilter === filter.value) {
             buttonClasses += ' ' + classes.active;
         }
         return (

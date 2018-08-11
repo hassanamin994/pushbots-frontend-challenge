@@ -15,46 +15,60 @@ import { Icon } from 'react-fa'
 class AppCard extends React.Component {
 
   render() {
-    const { classes, app } = this.props;
+    const { classes } = this.props;
 
     return (
       <div>
         <Card className={classes.card}>
-          <CardHeader
-            action={
-              <span>
-                {app.shared_by && 
-                
-                <Tooltip title={`Shared by ${app.shared_by}`} >
-                  <IconButton>
-                    <Icon name="share" />
-                  </IconButton>
-                </Tooltip>
-              }
-                <IconButton>
-                  <MoreVertIcon />
-                </IconButton>
-              </span>
-            }
-            title={app.title}
-            subheader={
-              <div className={classes.subheader}>
-                <span className={classes.activeCount}>{app.devices} active</span>
-                {this.renderPlatforms()}
-              </div>
-            }
-          />
-          <CardActions className={classes.actions} disableActionSpacing>
-
-            <IconButton aria-label="Share">
-              <Icon name="telegram" />
-            </IconButton>
-            <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-          </CardActions>
+          {this.renderCardHeader()}
+          {this.renderCardActions()}
         </Card>
       </div>
+    );
+  }
+
+  renderCardHeader() {
+    const { classes, app } = this.props;
+
+    return (
+      <CardHeader
+        action={
+          <span>
+            {app.shared_by &&
+              <Tooltip title={`Shared by ${app.shared_by}`} >
+                <IconButton>
+                  <Icon name="share" />
+                </IconButton>
+              </Tooltip>
+            }
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          </span>
+        }
+        title={app.title}
+        subheader={
+          <div className={classes.subheader}>
+            <span className={classes.activeCount}>{app.devices} active</span>
+            {this.renderPlatforms()}
+          </div>
+        }
+      />
+    )
+  }
+
+  renderCardActions() {
+    const { classes } = this.props;
+
+    return (
+      <CardActions className={classes.actions} disableActionSpacing>
+        <IconButton aria-label="Share">
+          <Icon name="telegram" />
+        </IconButton>
+        <IconButton aria-label="Add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+      </CardActions>
     );
   }
 
