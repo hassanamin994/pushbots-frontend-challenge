@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { appsReducer, INITIAL_STATE } from '../../reducers/apps_reducer';
-import { FETCH_APPS_LOADING, FETCH_APPS_SUCCESS, FETCH_APPS_FAILED } from '../../actions/types';
+import { FETCH_APPS_LOADING, FETCH_APPS_SUCCESS, FETCH_APPS_FAILED, CHANGE_APPS_FILTER } from '../../actions/types';
 
 describe('Reducers => app_reducer', () => {
 
@@ -38,6 +38,11 @@ describe('Reducers => app_reducer', () => {
         expect(resultState.counts.activeApps).to.eq(2);
         
         
+    })
+
+    it('Should change filter when CHANGE_APPS_FILTER action dispatched', () => {
+        const resultState = appsReducer(INITIAL_STATE, { type: CHANGE_APPS_FILTER, payload: 'inprogress' });
+        expect(resultState.filter).to.equal('inprogress');        
     })
 
 })
